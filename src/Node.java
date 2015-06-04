@@ -1,13 +1,45 @@
 import java.util.ArrayList;
 
-
 public class Node {
 	private char value;
 	private ArrayList<Node> nextNodes;
 	private Dict dictonary;
-	
+
 	public Node(char character) {
 		value = character;
 		nextNodes = new ArrayList<Node>();
 	}
+
+	/**
+	 * Don't be confused! This method finds the target node among the childs of
+	 * this node It's means the first letter of key doesn't match with this
+	 * node.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public boolean find(String key) {
+
+		if (key.length() > 1) {
+			char first = key.charAt(0);
+			String nextInput = key.substring(1, key.length());
+			for (Node i : nextNodes) {
+				if (i.getValue() == first)
+					return i.find(nextInput);
+			}
+			return false;
+		} else {
+			char first = key.charAt(0);
+			for (Node i : nextNodes) {
+				if (i.getValue() == first)
+					return true;
+			}
+			return false;
+		}
+	}
+
+	public char getValue() {
+		return this.value;
+	}
+
 }

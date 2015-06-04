@@ -7,4 +7,8 @@ public class InvertedIndex {
 		isCompressed = false;
 		root = new Node(' ');
 	}
+	
+	public boolean find(String key) {
+		return root.find(key);
+	}
 }
