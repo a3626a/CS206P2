@@ -20,6 +20,5 @@ public class InvertedIndex {
 		if (target == null)
 			target = make(key);
 		target.addData(docID, location);
-
 	}
 }

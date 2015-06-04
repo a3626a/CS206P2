@@ -16,7 +16,9 @@ public class Dict {
 		int prevIndex = 0;
 		
 		for (Tuple i : tuples) {
-			
+			if (prevIndex == i.getDocID()) {
+				
+			}
 		}
 	}
 	
