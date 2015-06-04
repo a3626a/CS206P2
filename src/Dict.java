@@ -10,4 +10,14 @@ public class Dict {
 	public void insert(int docID, int location) {
 		tuples.add(new Tuple(docID, location));
 	}
+	
+	public void deltaCompression() {
+		
+		int prevIndex = 0;
+		
+		for (Tuple i : tuples) {
+			
+		}
+	}
+	
 }
