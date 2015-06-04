@@ -66,6 +66,7 @@ public class Node {
 
 			for (Node i : nextNodes) {
 				if (i.getValue() == first) {
+					i.createDictionary();
 					return i;
 				}
 			}
