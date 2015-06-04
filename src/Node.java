@@ -10,6 +10,10 @@ public class Node {
 		nextNodes = new ArrayList<Node>();
 	}
 
+	public void createDictionary() {
+		dictonary = new Dict();
+	}
+	
 	/**
 	 * Don't be confused! This method finds the target node among the childs of
 	 * this node It's means the first letter of key doesn't match with this
@@ -68,6 +72,7 @@ public class Node {
 
 			Node nextNode = new Node(first);
 			nextNodes.add(nextNode);
+			nextNode.createDictionary();
 			return nextNode;
 		}
 
@@ -79,7 +84,7 @@ public class Node {
 	}
 
 	public void addData(int docID, int location) {
-
+		
 	}
 
 }
