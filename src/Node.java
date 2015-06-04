@@ -19,7 +19,6 @@ public class Node {
 	 * @return
 	 */
 	public boolean find(String key) {
-
 		if (key.length() > 1) {
 			char first = key.charAt(0);
 			String nextInput = key.substring(1, key.length());
@@ -38,6 +37,44 @@ public class Node {
 		}
 	}
 
+	public void make(String key) {
+		if (key.length() > 1) {
+			char first = key.charAt(0);
+			String nextInput = key.substring(1, key.length());
+			
+			boolean exist = false;
+			
+			for (Node i : nextNodes) {
+				if (i.getValue() == first) {
+					i.make(nextInput);
+					exist = true;
+				}
+			}
+			
+			if (!exist) {
+				Node nextNode = new Node(first);
+				nextNodes.add(nextNode);
+				nextNode.make(nextInput);
+			}
+			
+		} else {
+			char first = key.charAt(0);
+			
+			boolean exist = false;
+			
+			for (Node i : nextNodes) {
+				if (i.getValue() == first) {
+					exist = true;
+				}
+			}
+
+			if (!exist) {
+				Node nextNode = new Node(first);
+				nextNodes.add(nextNode);
+			}
+		}
+	}
+	
 	public char getValue() {
 		return this.value;
 	}
