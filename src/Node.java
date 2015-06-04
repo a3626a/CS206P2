@@ -18,7 +18,7 @@ public class Node {
 	 * @param key
 	 * @return
 	 */
-	public boolean find(String key) {
+	public Node find(String key) {
 		if (key.length() > 1) {
 			char first = key.charAt(0);
 			String nextInput = key.substring(1, key.length());
@@ -26,57 +26,60 @@ public class Node {
 				if (i.getValue() == first)
 					return i.find(nextInput);
 			}
-			return false;
+			return null;
 		} else {
 			char first = key.charAt(0);
 			for (Node i : nextNodes) {
 				if (i.getValue() == first)
-					return true;
+					return i;
 			}
-			return false;
+			return null;
 		}
 	}
 
-	public void make(String key) {
+	public Node make(String key) {
 		if (key.length() > 1) {
 			char first = key.charAt(0);
 			String nextInput = key.substring(1, key.length());
-			
+
 			boolean exist = false;
-			
+
 			for (Node i : nextNodes) {
 				if (i.getValue() == first) {
 					i.make(nextInput);
 					exist = true;
 				}
 			}
-			
+
 			if (!exist) {
 				Node nextNode = new Node(first);
 				nextNodes.add(nextNode);
 				nextNode.make(nextInput);
 			}
-			
+
 		} else {
 			char first = key.charAt(0);
-			
-			boolean exist = false;
-			
+
 			for (Node i : nextNodes) {
 				if (i.getValue() == first) {
-					exist = true;
+					return i;
 				}
 			}
 
-			if (!exist) {
-				Node nextNode = new Node(first);
-				nextNodes.add(nextNode);
-			}
+			Node nextNode = new Node(first);
+			nextNodes.add(nextNode);
+			return nextNode;
 		}
+
+		return null;
 	}
-	
+
 	public char getValue() {
 		return this.value;
+	}
+
+	public void addData(int docID, int location) {
+
 	}
 
 }
