@@ -85,7 +85,7 @@ public class Node {
 	}
 
 	public void addData(int docID, int location) {
-		
+		this.dictonary.insert(docID, location);
 	}
 
 }
