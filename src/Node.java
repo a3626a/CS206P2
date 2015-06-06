@@ -46,8 +46,6 @@ public class Node {
 			char first = key.charAt(0);
 			String nextInput = key.substring(1, key.length());
 
-			boolean exist = false;
-
 			for (Node i : nextNodes) {
 				if (i.getValue() == first) {
 					return i.make(nextInput);
