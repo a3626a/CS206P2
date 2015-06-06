@@ -12,13 +12,10 @@ public class Dict {
 	}
 	
 	public void compress() {
-		
-		int prevIndex = 0;
-		
-		for (Tuple i : tuples) {
-			if (prevIndex == i.getDocID()) {
-				
-			}
+		int sizeDict = tuples.size();
+		for (int i=sizeDict-1; i>=1; i--) {
+			int diff = tuples.get(i).getDocID() - tuples.get(i-1).getDocID();
+			tuples.get(i).setDocID(diff);
 		}
 	}
 	

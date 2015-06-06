@@ -79,5 +79,13 @@ public class Node {
 	public void addData(int docID, int location) {
 		this.dictonary.insert(docID, location);
 	}
+	
+	public Dict getList() {
+		return this.dictonary;
+	}
+	
+	public ArrayList<Node> getNextNodes() {
+		return this.nextNodes;
+	}
 
 }

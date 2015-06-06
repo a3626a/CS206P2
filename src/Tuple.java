@@ -14,5 +14,8 @@ public class Tuple {
 	public int getLocation() {
 		return location;
 	}
-
+	
+	public void setDocID (int n) {
+		docID = n;
+	}
 }
