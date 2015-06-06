@@ -45,11 +45,15 @@ public class Main {
 		for (String word : keywords) {
 			if (word.charAt(0) == '!') {
 				String subword = word.substring(1, word.length());
-				Dict d = invIndex.find(subword).getList();
+				Node n = invIndex.find(subword);
+				if (n == null) continue;
+				Dict d = n.getList();
 				excludeKeywords.add(d);
 			}
 			else {
-				Dict d = invIndex.find(word).getList();
+				Node n = invIndex.find(word);
+				if (n == null) continue;
+				Dict d = n.getList();
 				mergeKeywords.add(d);
 			}
 		}
