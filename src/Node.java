@@ -34,7 +34,7 @@ public class Node {
 		} else {
 			char first = key.charAt(0);
 			for (Node i : nextNodes) {
-				if (i.getValue() == first)
+				if (i.getValue() == first && i.dictonary != null)
 					return i;
 			}
 			return null;
