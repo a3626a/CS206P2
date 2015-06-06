@@ -75,4 +75,16 @@ public class Dict {
 		return mergedDict;
 	}
 	
+	public Dict excludeCompressedDict (Dict dictionary) {
+		return new Dict();
+	}
+	
+	public void printDict() {
+		System.out.println("Search results:");
+		for (Tuple t : this.tuples) {
+			t.printTuple(); System.out.print(" ");
+		}
+		System.out.println();
+	}
+	
 }

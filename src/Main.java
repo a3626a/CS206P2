@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -15,21 +16,59 @@ public class Main {
 		System.out.println();
 		
 		invIndex = new InvertedIndex();
-		buildInvertedIndex(invIndex);
+		buildInvertedIndex();
+		invIndex.deltaCompression();
+		
+		while (true) {
+			boolean cont = search_input_print_result();
+			if (!cont) break;
+		}
 		
 	}
 	
 	// Currently this method is not used.
 	// Implemented for future use.
-	public static int menu() {
+	public static boolean search_input_print_result() {
+		System.out.println();
 		System.out.println("Enter a search command.");
-		System.out.println("*multiple keywords are allowed");
-		System.out.println("! for exclusion");
+		System.out.println("* Multiple keywords are allowed");
+		System.out.println("* For exclusion, use '!' command. (ex) !search");
+		System.out.println("* To quit the program, enter '%QUIT'. ");
+		System.out.print(">> ");
 
-		int ret = key.nextInt();
-		key.nextLine();
-
-		return ret;
+		String searchwords = key.nextLine();
+		if (searchwords.equals("%QUIT")) return false;
+		String[] keywords = searchwords.split(" ");
+		
+		ArrayList<Dict> mergeKeywords = new ArrayList<Dict>();
+		ArrayList<Dict> excludeKeywords = new ArrayList<Dict>();
+		for (String word : keywords) {
+			if (word.charAt(0) == '!') {
+				String subword = word.substring(1, word.length());
+				Dict d = invIndex.find(subword).getList();
+				excludeKeywords.add(d);
+			}
+			else {
+				Dict d = invIndex.find(word).getList();
+				mergeKeywords.add(d);
+			}
+		}
+		
+		if (mergeKeywords.size() == 0) return true;
+		
+		while (mergeKeywords.size() > 1) {
+			Dict d1 = mergeKeywords.remove(0);
+			Dict d2 = mergeKeywords.remove(0);
+			mergeKeywords.add(0, d1.mergeCompressedDict(d2));
+		}
+		Dict result = mergeKeywords.get(0);
+		while (excludeKeywords.size() > 0) {
+			Dict d3 = excludeKeywords.remove(0);
+			result = result.excludeCompressedDict(d3);
+		}
+		
+		result.printDict();
+		return true;
 	}
 	
 	/*
@@ -41,7 +80,7 @@ public class Main {
 	 *  the given input object.
 	 *  
 	 */
-	public static void buildInvertedIndex (InvertedIndex invIndex) throws FileNotFoundException {
+	public static void buildInvertedIndex () throws FileNotFoundException {
 		String filepath = "documents\\";
 		int filenumber = 1;
 		while (true) {
@@ -56,7 +95,7 @@ public class Main {
 					for (String word : splited) {
 						invIndex.add(word, filenumber, wordcount);
 						//test
-						System.out.printf("%d %d %s\n", filenumber, wordcount, word);
+						// System.out.printf("%d %d %s\n", filenumber, wordcount, word);
 						//test end
 						wordcount++;
 					}

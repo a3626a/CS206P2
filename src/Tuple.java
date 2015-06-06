@@ -18,4 +18,8 @@ public class Tuple {
 	public void setDocID (int n) {
 		this.docID = n;
 	}
+	
+	public void printTuple () {
+		System.out.printf("(%d, %d)", docID, location);
+	}
 }
