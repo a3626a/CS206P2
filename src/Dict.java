@@ -11,7 +11,7 @@ public class Dict {
 		tuples.add(new Tuple(docID, location));
 	}
 	
-	public void deltaCompression() {
+	public void compress() {
 		
 		int prevIndex = 0;
 		
