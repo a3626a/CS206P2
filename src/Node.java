@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Node {
 	private char value;
 	private ArrayList<Node> nextNodes;
-	private Dict dictonary;
+	private Dict dictionary;
 
 	public Node(char character) {
 		value = character;
@@ -11,7 +11,7 @@ public class Node {
 	}
 
 	public void createDictionary() {
-		dictonary = new Dict();
+		dictionary = new Dict();
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class Node {
 		} else {
 			char first = key.charAt(0);
 			for (Node i : nextNodes) {
-				if (i.getValue() == first && i.dictonary != null)
+				if (i.getValue() == first && i.dictionary != null)
 					return i;
 			}
 			return null;
@@ -71,17 +71,26 @@ public class Node {
 			return nextNode;
 		}
 	}
+	
+	public void traverseAndCompress () {
+		if (this.dictionary != null) {
+			this.dictionary.compress();
+		}
+		for (Node nextElement : this.nextNodes) {
+			nextElement.traverseAndCompress();
+		}
+	}
 
 	public char getValue() {
 		return this.value;
 	}
 
 	public void addData(int docID, int location) {
-		this.dictonary.insert(docID, location);
+		this.dictionary.insert(docID, location);
 	}
 	
 	public Dict getList() {
-		return this.dictonary;
+		return this.dictionary;
 	}
 	
 	public ArrayList<Node> getNextNodes() {

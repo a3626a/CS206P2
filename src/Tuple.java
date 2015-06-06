@@ -12,10 +12,10 @@ public class Tuple {
 	}
 
 	public int getLocation() {
-		return location;
+		return this.location;
 	}
 	
 	public void setDocID (int n) {
-		docID = n;
+		this.docID = n;
 	}
 }

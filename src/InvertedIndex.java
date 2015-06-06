@@ -25,17 +25,7 @@ public class InvertedIndex {
 	}
 
 	public void deltaCompression () {
-		traverseAndCompress (root);
+		root.traverseAndCompress();
 		isCompressed = true;
-	}
-	
-	public void traverseAndCompress (Node now) {
-		Dict now_list = now.getList();
-		if (now_list != null) now_list.compress();
-		
-		ArrayList<Node> nextNodes = now.getNextNodes();
-		for (Node nextElement : nextNodes) {
-			traverseAndCompress (nextElement);
-		}
 	}
 }
