@@ -64,10 +64,12 @@ public class Dict {
 					p2++;
 				}
 			} else if (doc1 > doc2) {
+				// traverse tuples
 				doc2 += d2.tuples.get(p2).getDocID();
 				p2++;
 			} else if (doc1 < doc2) {
 				// we can use just 'else' but for easy-to-read code
+				// traverse tuples
 				doc1 += d1.tuples.get(p1).getDocID();
 				p1++;
 			}
