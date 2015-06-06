@@ -40,17 +40,18 @@ public class Dict {
 		doc2 = dictionary.tuples.get(0).getDocID();
 		// initialization
 
-		int p1 = 1;
-		int p2 = 1;
-		// pointer variable to track index of d1, d2 (next to read)
+		int p1 = 0;
+		int p2 = 0;
+		// pointer variable to track index of d1, d2
 		// these are initialized to 1 because we already read the first entry to
 		// initialize doc1 and doc2
 
 		while (p1 < this.tuples.size() && p2 < dictionary.tuples.size()) {
 			if (doc1 == doc2) {
 				// add tuples that exist on d1 and d2
-				mergedDict.tuples.add(new Tuple(doc1 - docM, this.tuples.get(
-						p1 - 1).getLocation()));
+				mergedDict.tuples.add(new Tuple(doc1 - docM, this.tuples
+						.get(p1).getLocation()));
+				p1++;
 				docM = doc1;
 				while (p1 < this.tuples.size()
 						&& this.tuples.get(p1).getDocID() == 0) {
@@ -59,8 +60,9 @@ public class Dict {
 					p1++;
 				}
 
-				mergedDict.tuples.add(new Tuple(0, dictionary.tuples
-						.get(p2 - 1).getLocation()));
+				mergedDict.tuples.add(new Tuple(0, dictionary.tuples.get(p2)
+						.getLocation()));
+				p2++;
 				while (p2 < dictionary.tuples.size()
 						&& dictionary.tuples.get(p2).getDocID() == 0) {
 					mergedDict.tuples.add(new Tuple(0, dictionary.tuples
@@ -70,32 +72,26 @@ public class Dict {
 
 				if (p1 < this.tuples.size()) {
 					doc1 += this.tuples.get(p1).getDocID();
-					p1++;
 				}
 
 				if (p2 < dictionary.tuples.size()) {
 					doc2 += dictionary.tuples.get(p2).getDocID();
-					p2++;
 				}
 
 			} else if (doc1 > doc2) {
 				// traverse tuples
-				doc2 += dictionary.tuples.get(p2).getDocID();
 				p2++;
+				if (p2 < dictionary.tuples.size()) {
+					doc2 += dictionary.tuples.get(p2).getDocID();
+				}
 			} else if (doc1 < doc2) {
 				// we can use just 'else' but for easy-to-read code
 				// traverse tuples
-				doc1 += this.tuples.get(p1).getDocID();
 				p1++;
+				if (p1 < this.tuples.size()) {
+					doc1 += this.tuples.get(p1).getDocID();
+				}
 			}
-		}
-
-		if (doc1 == doc2) {
-			// for last elements
-			mergedDict.tuples.add(new Tuple(doc1 - docM, this.tuples
-					.get(p1 - 1).getLocation()));
-			mergedDict.tuples.add(new Tuple(0, dictionary.tuples.get(p2 - 1)
-					.getLocation()));
 		}
 
 		return mergedDict;
@@ -106,7 +102,8 @@ public class Dict {
 		if (this.tuples.isEmpty() || dictionary.tuples.isEmpty()) {
 			return this;
 			// it looks weird but right :)
-			// think carefully for each case
+			// if this tuple is empty, return empty (this)
+			// if dictionary is empty, return this
 		}
 
 		Dict excludedDict = new Dict();
@@ -122,19 +119,21 @@ public class Dict {
 		doc2 = dictionary.tuples.get(0).getDocID();
 		// initialization
 
-		int p1 = 1;
-		int p2 = 1;
-		// pointer variable to track index of d1, d2 (next to read)
+		int p1 = 0;
+		int p2 = 0;
+		// pointer variable to track index of d1, d2
 		// these are initialized to 1 because we already read the first entry to
 		// initialize doc1 and doc2
 
 		while (p1 < this.tuples.size() && p2 < dictionary.tuples.size()) {
 			if (doc1 == doc2) {
-				// skip this document to exclude it
+				// pass this document
+				p1++;
 				while (p1 < this.tuples.size()
 						&& this.tuples.get(p1).getDocID() == 0) {
 					p1++;
 				}
+				p2++;
 				while (p2 < dictionary.tuples.size()
 						&& dictionary.tuples.get(p2).getDocID() == 0) {
 					p2++;
@@ -142,34 +141,43 @@ public class Dict {
 
 				if (p1 < this.tuples.size()) {
 					doc1 += this.tuples.get(p1).getDocID();
-					p1++;
 				}
+
 				if (p2 < dictionary.tuples.size()) {
 					doc2 += dictionary.tuples.get(p2).getDocID();
-					p2++;
 				}
+
 			} else if (doc1 > doc2) {
 				// traverse tuples
-				doc2 += dictionary.tuples.get(p2).getDocID();
 				p2++;
+				if (p2 < dictionary.tuples.size()) {
+					doc2 += dictionary.tuples.get(p2).getDocID();
+				}
 			} else if (doc1 < doc2) {
 				// we can use just 'else' but for easy-to-read code
-				// traverse tuples and add it because it's not excluded
-				doc1 += this.tuples.get(p1).getDocID();
-				excludedDict.tuples.add(new Tuple(doc1-docE,this.tuples.get(p1).getLocation()));
+				// traverse tuples and add it to excludedDict
+				excludedDict.tuples.add(new Tuple(doc1 - docE, this.tuples.get(
+						p1).getLocation()));
+				docE = doc1;
+				p1++;
+				if (p1 < this.tuples.size()) {
+					doc1 += this.tuples.get(p1).getDocID();
+				}
+			}
+		}
+
+		while (p1 < this.tuples.size()) {
+			if (doc1 != doc2) {
+				excludedDict.tuples.add(new Tuple(doc1 - docE, this.tuples.get(
+						p1).getLocation()));
 				docE = doc1;
 				p1++;
 			}
+			if (p1 < this.tuples.size()) {
+				doc1 += this.tuples.get(p1).getDocID();
+			}
 		}
-/*
-		if (doc1 != doc2) {
-			// for last elements
-			excludedDict.tuples.add(new Tuple(doc1 - docE, this.tuples
-					.get(p1 - 1).getLocation()));
-			excludedDict.tuples.add(new Tuple(0, dictionary.tuples.get(p2 - 1)
-					.getLocation()));
-		}
-*/
+
 		return excludedDict;
 	}
 
