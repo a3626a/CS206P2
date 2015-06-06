@@ -13,7 +13,7 @@ public class Node {
 	public void createDictionary() {
 		dictonary = new Dict();
 	}
-	
+
 	/**
 	 * Don't be confused! This method finds the target node among the childs of
 	 * this node It's means the first letter of key doesn't match with this
@@ -50,17 +50,14 @@ public class Node {
 
 			for (Node i : nextNodes) {
 				if (i.getValue() == first) {
-					i.make(nextInput);
-					exist = true;
+					return i.make(nextInput);
 				}
 			}
 
-			if (!exist) {
-				Node nextNode = new Node(first);
-				nextNodes.add(nextNode);
-				nextNode.make(nextInput);
-			}
-
+			Node nextNode = new Node(first);
+			nextNodes.add(nextNode);
+			nextNode.make(nextInput);
+			return nextNode;
 		} else {
 			char first = key.charAt(0);
 
@@ -76,8 +73,6 @@ public class Node {
 			nextNode.createDictionary();
 			return nextNode;
 		}
-
-		return null;
 	}
 
 	public char getValue() {
