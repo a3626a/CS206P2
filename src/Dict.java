@@ -45,7 +45,7 @@ public class Dict {
 		// pointer variable to track index of d1, d2 (next to read)
 		// these are initialized to 1 because we already read the first entry to
 		// initialize doc1 and doc2
-
+		
 		while (p1 < this.tuples.size() && p2 < dictionary.tuples.size()) {
 			if (doc1 == doc2) {
 				// add tuples that exist on d1 and d2
@@ -73,8 +73,8 @@ public class Dict {
 					p1++;
 				}
 				
-				if (p2 < this.tuples.size()) {
-					doc2 += this.tuples.get(p2).getDocID();
+				if (p2 < dictionary.tuples.size()) {
+					doc2 += dictionary.tuples.get(p2).getDocID();
 					p2++;
 				}
 				
@@ -90,6 +90,16 @@ public class Dict {
 			}
 		}
 
+		
+		if (doc1 == doc2) {
+			// for last elements
+			mergedDict.tuples.add(new Tuple(doc1 - docM, this.tuples.get(
+					p1 - 1).getLocation()));
+			mergedDict.tuples.add(new Tuple(0, dictionary.tuples
+					.get(p2 - 1).getLocation()));
+		}
+		
+		
 		return mergedDict;
 	}
 
@@ -108,8 +118,8 @@ public class Dict {
 		// pointer variable to store document id of d1
 		int doc2;
 		// pointer variable to store document id of d2
-		int docM = 0;
-		// pointer variable to store document id of merged dictionary
+		int docE = 0;
+		// pointer variable to store document id of excluded dictionary
 
 		doc1 = this.tuples.get(0).getDocID();
 		doc2 = dictionary.tuples.get(0).getDocID();
@@ -124,22 +134,21 @@ public class Dict {
 		while (p1 < this.tuples.size() && p2 < dictionary.tuples.size()) {
 			if (doc1 == doc2) {
 				// add tuples that exist on d1 and d2
-				excludeDict.tuples.add(new Tuple(doc1 - docM, this.tuples.get(
-						p1 - 1).getLocation()));
-				docM = doc1;
 				while (p1 < this.tuples.size()
 						&& this.tuples.get(p1).getDocID() == 0) {
-					excludeDict.tuples.add(new Tuple(0, this.tuples.get(p1)
-							.getLocation()));
 					p1++;
 				}
-
-				excludeDict.tuples.add(new Tuple(0, dictionary.tuples
-						.get(p2 - 1).getLocation()));
 				while (p2 < dictionary.tuples.size()
 						&& dictionary.tuples.get(p2).getDocID() == 0) {
-					excludeDict.tuples.add(new Tuple(0, dictionary.tuples
-							.get(p2).getLocation()));
+					p2++;
+				}
+				
+				if (p1 < this.tuples.size()) {
+					doc1 += this.tuples.get(p1).getDocID();
+					p1++;
+				}
+				if (p2 < this.tuples.size()) {
+					doc2 += this.tuples.get(p2).getDocID();
 					p2++;
 				}
 			} else if (doc1 > doc2) {
