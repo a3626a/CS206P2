@@ -2,10 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+	
+	/**
+	 *  Main Class
+	 */
 
 public class Main {
-
+	
 	public static Scanner key = new Scanner(System.in);
 	public static InvertedIndex invIndex;
 	
@@ -26,8 +29,35 @@ public class Main {
 		
 	}
 	
-	// Currently this method is not used.
-	// Implemented for future use.
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////      THIS IS THE END OF THE MAIN METHOD.      /////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////     THE FOLLOWINGS ARE OPERATION METHODS.     /////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	/*
+	 *  method: search_input_print_result
+	 *  inputs: none
+	 *  outputs: boolean
+	 *  
+	 *  This method first retrieve an input from the console and classify them into
+	 *  two groups, one for merge and one for exclude.
+	 *  If an input is "%QUIT"(case sensitive) then the method immediately returns FALSE
+	 *  and the whole program terminates.
+	 *  Otherwise, first it eliminates all keywords that doesn't exist in the inverted index
+	 *  to avoid Exception. With the remaining keywords, Dict objects corresponding to those
+	 *  keywords are merged or excluded based on the input. If there's no keyword then this
+	 *  method immediately returns TRUE and retrieves another input. Otherwise, it prints out
+	 *  the final result.
+	 */
 	public static boolean search_input_print_result() {
 		System.out.println();
 		System.out.println("Enter a search command.");
@@ -82,7 +112,6 @@ public class Main {
 	 *  
 	 *  This method traverse through all input documents and add all word data into 
 	 *  the given input object.
-	 *  
 	 */
 	public static void buildInvertedIndex () throws FileNotFoundException {
 		String filepath = "documents\\";
@@ -118,7 +147,6 @@ public class Main {
 	 *  
 	 *  This method modifies given array's every string element to exclude characters
 	 *  except alphabets/numbers.
-	 *  
 	 */
 	public static void process_input (String[] splited) {
 		for (int i=0; i<splited.length; i++) {

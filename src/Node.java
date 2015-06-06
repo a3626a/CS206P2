@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Node {
+	
 	private char value;
 	private ArrayList<Node> nextNodes;
 	private Dict dictionary;
@@ -14,14 +15,6 @@ public class Node {
 		dictionary = new Dict();
 	}
 
-	/**
-	 * Don't be confused! This method finds the target node among the childs of
-	 * this node It's means the first letter of key doesn't match with this
-	 * node.
-	 * 
-	 * @param key
-	 * @return
-	 */
 	public Node find(String key) {
 		if (key.length() > 1) {
 			char first = key.charAt(0);
@@ -72,6 +65,10 @@ public class Node {
 		}
 	}
 	
+	public void addData(int docID, int location) {
+		this.dictionary.insert(docID, location);
+	}
+	
 	public void traverseAndCompress () {
 		if (this.dictionary != null) {
 			this.dictionary.compress();
@@ -84,17 +81,8 @@ public class Node {
 	public char getValue() {
 		return this.value;
 	}
-
-	public void addData(int docID, int location) {
-		this.dictionary.insert(docID, location);
-	}
 	
 	public Dict getList() {
 		return this.dictionary;
 	}
-	
-	public ArrayList<Node> getNextNodes() {
-		return this.nextNodes;
-	}
-
 }

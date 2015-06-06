@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Dict {
+	
 	private ArrayList<Tuple> tuples;
 
 	public Dict() {
@@ -20,7 +21,6 @@ public class Dict {
 	}
 	
 	public Dict mergeCompressedDict(Dict dictionary) {
-		
 		// Exception Handling - one of dictionaries is empty
 		if (this.tuples.isEmpty() || dictionary.tuples.isEmpty()) {
 			return new Dict();
