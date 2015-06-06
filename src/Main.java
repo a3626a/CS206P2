@@ -85,7 +85,10 @@ public class Main {
 			}
 			else {
 				Node n = invIndex.find(word);
-				if (n == null) continue;
+				if (n == null) {
+					System.out.println("No results found");
+					return true;
+				}
 				Dict d = n.getList();
 				mergeKeywords.add(d);
 			}
