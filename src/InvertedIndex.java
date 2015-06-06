@@ -2,10 +2,8 @@
 public class InvertedIndex {
 	
 	private Node root;
-	private boolean isCompressed;
 	
 	public InvertedIndex() {
-		isCompressed = false;
 		root = new Node(' ');
 	}
 
@@ -59,6 +57,5 @@ public class InvertedIndex {
 	 */
 	public void deltaCompression () {
 		root.traverseAndCompress();
-		isCompressed = true;
 	}
 }
