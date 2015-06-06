@@ -67,7 +67,10 @@ public class Main {
 		System.out.print(">> ");
 
 		String searchwords = key.nextLine();
-		if (searchwords.equals("%QUIT")) return false;
+		if (searchwords.equals("%QUIT")) {
+			System.out.println("Program quits.");
+			return false;
+		}
 		String[] keywords = searchwords.split(" ");
 		
 		ArrayList<Dict> mergeKeywords = new ArrayList<Dict>();
@@ -88,7 +91,10 @@ public class Main {
 			}
 		}
 		
-		if (mergeKeywords.size() == 0) return true;
+		if (mergeKeywords.size() == 0) {
+			System.out.println("No results found.");
+			return true;
+		}
 		
 		while (mergeKeywords.size() > 1) {
 			Dict d1 = mergeKeywords.remove(0);
