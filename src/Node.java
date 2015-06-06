@@ -56,8 +56,7 @@ public class Node {
 
 			Node nextNode = new Node(first);
 			nextNodes.add(nextNode);
-			nextNode.make(nextInput);
-			return nextNode;
+			return nextNode.make(nextInput);
 		} else {
 			char first = key.charAt(0);
 
