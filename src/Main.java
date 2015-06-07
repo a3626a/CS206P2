@@ -71,7 +71,12 @@ public class Main {
 			System.out.println("Program quits.");
 			return false;
 		}
+		searchwords = searchwords.trim();
 		String[] keywords = searchwords.split(" ");
+		if (searchwords.equals("")) {
+			System.out.println("ERROR: No inputs");
+			return true;
+		}
 		
 		ArrayList<Dict> mergeKeywords = new ArrayList<Dict>();
 		ArrayList<Dict> excludeKeywords = new ArrayList<Dict>();
