@@ -128,14 +128,11 @@ public class Main {
 	 *  the given input object.
 	 */
 	public static void buildInvertedIndex () throws FileNotFoundException {
-		//String filepath = "documents\\";
-		File filepath2 = new File("documents");
-		File[] files = filepath2.listFiles();
+		String filepath = "documents\\";
 		int filenumber = 1;
-		//while (true) {
-		for (File f : files) {
-			//File f = new File (filepath + "doc" + filenumber + ".txt");
-			//if (f.exists()) {
+		while (true) {
+			File f = new File (filepath + "doc" + filenumber + ".txt");
+			if (f.exists()) {
 				int wordcount = 1;
 				Scanner filereader = new Scanner (f);
 				while (filereader.hasNextLine()) {
@@ -151,8 +148,8 @@ public class Main {
 					}
 				}
 				filereader.close();
-			//}
-			//else break;
+			}
+			else break;
 			filenumber++;
 		}
 	}
